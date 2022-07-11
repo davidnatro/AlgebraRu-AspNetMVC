@@ -1,0 +1,12 @@
+.chapter {
+    --angle: 0deg;
+    padding: 20px;
+    margin-bottom: 50px;
+    /*background: linear-gradient(to left top, #253D66 25%, transparent 30%, transparent 45% , #253D66 90%) border-box;*/
+    background: linear-gradient(var(--angle), #253D66, #435066);
+    border-radius: 50px;
+}
+
+.group {
+    margin-bottom: 50px;
+}

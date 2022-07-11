@@ -1,0 +1,50 @@
+* {
+    box-sizing: border-box;
+}
+
+.dropdown-menu {
+    background-color: #435066;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0;
+}
+
+.post {
+    margin-bottom: 50px;
+}
+
+body {
+    font-family: Charter;
+    margin: 0;
+    background-color: #435066;
+}
+
+.logo {
+    font-size: 30px
+}
+
+.hor_line {
+    background-color: #9AB7EA;
+    width: 100vw;
+    height: 10px;
+    margin-bottom: 20px;
+}
+
+.navigation {
+    background-color: #253D66;
+    color: white;
+    font-size: 20px;
+    min-height: 70px;
+}
+
+.header {
+    min-height: 70px;
+    padding: 10px;
+}
+
+.avatar {
+    height: 300px;
+    width: 300px;
+}
