@@ -20,12 +20,9 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
     options.Password.RequireNonAlphanumeric = false;
     options.Password.RequireLowercase = true;
     options.Password.RequireUppercase = true;
-});
+}).AddEntityFrameworkStores<AppDbContext>();
 
-builder.Services.ConfigureApplicationCookie(options =>
-{
-    options.LoginPath = "/Login/Index";
-});
+builder.Services.ConfigureApplicationCookie(options => options.LoginPath = "/Login");
 
 var app = builder.Build();
 
@@ -42,6 +39,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

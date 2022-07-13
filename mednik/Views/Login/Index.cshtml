@@ -1,4 +1,4 @@
-
+@model mednik.Models.DTO.LoginModel
 
 @{
     Layout = "_Layout";
@@ -8,23 +8,25 @@
 
 <html>
 <head>
-      <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="login.css">
     <title>Login</title>
 </head>
 <body>
 <div class="container">
-  <div class="row">
-    <div class="col"></div>
-    <div class="col login">
-      <form class="box" action="index.html" method="post">
-        <h1>Login</h1>
-        <input type="text" placeholder="Username">
-        <input type="password" placeholder="Password">
-        <input type="submit" value="Login">
-      </form>
+    <div class="row text-danger" asp-validation-summary="All"></div>
+    <div class="row">
+        <div class="col"></div>
+        <div class="col login">
+            <form class="box" asp-controller="Login" asp-action="Login" method="post">
+                <h1>Login</h1>
+                <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl"/>
+                <input type="text" placeholder="Email" asp-for="Email">
+                <input type="password" placeholder="Password" asp-for="Password">
+                <input type="submit" value="Login">
+            </form>
+        </div>
+        <div class="col"></div>
     </div>
-    <div class="col"></div>
-  </div>
 </div>
 </body>
 </html>

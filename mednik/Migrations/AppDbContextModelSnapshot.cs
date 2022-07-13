@@ -42,7 +42,6 @@ namespace mednik.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("ImgURL")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
@@ -72,7 +71,6 @@ namespace mednik.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Telegram")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("TwoFactorEnabled")

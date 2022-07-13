@@ -12,7 +12,7 @@ using mednik.Data;
 namespace mednik.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220711194727_initial")]
+    [Migration("20220713123501_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -44,7 +44,6 @@ namespace mednik.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("ImgURL")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
@@ -74,7 +73,6 @@ namespace mednik.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Telegram")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("TwoFactorEnabled")
