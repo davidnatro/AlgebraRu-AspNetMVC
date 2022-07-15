@@ -50,6 +50,9 @@
                                     Сингулярное разложение(SVD)
                                 </a>
                             </li>
+                            <li>
+                                <!-- Add service -->
+                            </li>
                         </ul>
                     </li>
                     <li class="nav-item">
@@ -59,7 +62,7 @@
                         <a class="nav-link text-white" asp-controller="Contacts" asp-action="Index">Контакты <i class="bi bi-info-circle-fill"></i></a>
                     </li>
                     <li class="nav-item justify-content-end">
-                        @if (User.Identity.IsAuthenticated)
+                        @if (User?.Identity?.IsAuthenticated ?? false)
                         {
                             <a class="nav-link text-white" asp-controller="Login" asp-action="Logout">Logout <i class="bi bi-code-slash"></i></a>
                         }

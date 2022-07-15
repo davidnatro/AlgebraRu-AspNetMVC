@@ -7,11 +7,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace mednik.Controllers;
 
+[Authorize]
 public class LoginController : Controller
 {
-    private UserManager<User> _userManager;
+    private readonly UserManager<User> _userManager;
 
-    private SignInManager<User> _signInManager;
+    private readonly SignInManager<User> _signInManager;
 
     public LoginController(UserManager<User> userManager, SignInManager<User> signInManager)
     {
@@ -19,7 +20,7 @@ public class LoginController : Controller
         _signInManager = signInManager;
     }
 
-    // GET
+    [AllowAnonymous]
     public IActionResult Index()
     {
         return View();
@@ -57,8 +58,7 @@ public class LoginController : Controller
 
         return RedirectToAction("Index", "Login", details);
     }
-
-    [Authorize]
+    
     public async Task<IActionResult> Logout()
     {
         await _signInManager.SignOutAsync();
