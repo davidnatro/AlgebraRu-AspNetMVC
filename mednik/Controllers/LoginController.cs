@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using mednik.Models;
 using mednik.Models.DTO;
 using Microsoft.AspNetCore.Authorization;
@@ -17,7 +18,7 @@ public class LoginController : Controller
         _userManager = userManager;
         _signInManager = signInManager;
     }
-    
+
     // GET
     public IActionResult Index()
     {
@@ -51,22 +52,16 @@ public class LoginController : Controller
                 }
             }
 
-            ModelState.AddModelError(string.Empty, "Invalid user or password");
+            ModelState.AddModelError(nameof(LoginModel.Email), "Invalid user or password");
         }
 
-        return View("Index");
+        return RedirectToAction("Index", "Login", details);
     }
 
-    [HttpPost]
-    [ValidateAntiForgeryToken]
+    [Authorize]
     public async Task<IActionResult> Logout()
     {
         await _signInManager.SignOutAsync();
-        return RedirectToPage("Index", "Home");
-    }
-
-    private async Task SignOut()
-    {
-        await _signInManager.SignOutAsync();
+        return RedirectToAction("Index", "Home");
     }
 }

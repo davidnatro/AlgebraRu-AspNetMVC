@@ -13,12 +13,12 @@
 </head>
 <body>
 <div class="container">
-    <div class="row text-danger" asp-validation-summary="All"></div>
     <div class="row">
         <div class="col"></div>
         <div class="col login">
             <form class="box" asp-controller="Login" asp-action="Login" method="post">
                 <h1>Login</h1>
+                <div class="row text-danger" asp-validation-summary="All"></div>
                 <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl"/>
                 <input type="text" placeholder="Email" asp-for="Email">
                 <input type="password" placeholder="Password" asp-for="Password">

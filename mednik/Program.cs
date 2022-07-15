@@ -22,7 +22,7 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
     options.Password.RequireUppercase = true;
 }).AddEntityFrameworkStores<AppDbContext>();
 
-builder.Services.ConfigureApplicationCookie(options => options.LoginPath = "/Login");
+builder.Services.ConfigureApplicationCookie(options => options.LoginPath = "/Login/Index");
 
 var app = builder.Build();
 
