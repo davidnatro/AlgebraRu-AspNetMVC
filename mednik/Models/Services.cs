@@ -1,8 +1,6 @@
-using mednik.Data.Base;
-
 namespace mednik.Models;
 
-public class Services : IEntityBase
+public class Services
 {
     public Guid Id { get; set; }
     

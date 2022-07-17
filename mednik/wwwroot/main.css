@@ -11,6 +11,10 @@
     margin-top: 0;
 }
 
+.drop-item {
+    width: 110%;
+}
+
 .post {
     margin-bottom: 50px;
 }
@@ -47,4 +51,12 @@ body {
 .avatar {
     height: 300px;
     width: 300px;
+}
+
+.add-service {
+    color: #808080;
+}
+
+.no-link-line {
+    text-decoration: none;
 }

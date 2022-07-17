@@ -1,5 +1,6 @@
 using mednik.Data;
 using mednik.Models;
+using mednik.Data.Repositories.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,6 +11,8 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<AppDbContext>(options
     => options.UseSqlServer(builder.Configuration.GetConnectionString("Development")));
+
+builder.Services.AddScoped<IServicesRepository, ServicesRepository>();
 
 builder.Services.AddIdentity<User, IdentityRole>(options =>
 {

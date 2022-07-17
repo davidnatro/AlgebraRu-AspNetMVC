@@ -1,4 +1,5 @@
-﻿@using Microsoft.AspNetCore.Mvc.RazorPages
+﻿@using mednik.Data.Repositories.Services
+@inject IServicesRepository Repository;
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,17 +43,32 @@
                             Сервисы <i class="bi bi-calculator"></i>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li>
-                                <a class="dropdown-item text-white" href="https://matrixcalc.org/" target="_blank">Матричный калькулятор</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item text-white" href="http://timbaumann.info/svd-image-compression-demo/" target="_blank">
-                                    Сингулярное разложение(SVD)
-                                </a>
-                            </li>
-                            <li>
-                                <!-- Add service -->
-                            </li>
+                            @{
+                                var services = await Repository.GetAllAsync();
+                            }
+                            @foreach (var service in services)
+                            {
+                                <li>
+                                    <div class="dropdown-item btn-group">
+                                        <a class="dropdown-item text-white no-link-line" href="@service.Link" target="_blank">@service.Name</a>
+                                        @if (User?.Identity?.IsAuthenticated ?? false)
+                                        {
+                                            <form asp-controller="Services" asp-action="Delete" method="post">
+                                                <input type="hidden" name="id" value="@service.Id"/>
+                                                <button class="dropdown-item" type="submit" style="background: transparent; border: none">
+                                                    <i class="bi bi-trash text-white"></i>
+                                                </button>
+                                            </form>
+                                        }
+                                    </div>
+                                </li>
+                            }
+                            @if (User?.Identity?.IsAuthenticated ?? false)
+                            {
+                                <li>
+                                    <a class="dropdown-item add-service" asp-controller="Services" asp-action="Index">Добавить +</a>
+                                </li>
+                            }
                         </ul>
                     </li>
                     <li class="nav-item">
