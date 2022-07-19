@@ -1,16 +1,12 @@
 using mednik.Data;
 using mednik.Data.Posts;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 using MongoDB.Bson;
-using MongoDB.Driver;
-using MongoDB.Driver.GridFS;
 
 namespace mednik.Controllers;
 
 public class PostsController : Controller
 {
-
     private readonly IPostsRepository _postsRepository;
 
     public PostsController(IPostsRepository postsRepository, AppDbContext appDbContext)
@@ -20,6 +16,14 @@ public class PostsController : Controller
     
     public IActionResult Index() => View();
 
+    [HttpGet]
+    public async Task<FileStreamResult> Render(string imgUrl)
+    {
+        var id = new ObjectId(imgUrl);
+
+        return await _postsRepository.DownloadFile(id);
+    }
+    
     public async Task<IActionResult> Save(string? name, string description, IFormFile? data)
     { 
         if (name != null && data != null)

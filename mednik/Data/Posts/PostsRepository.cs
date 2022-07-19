@@ -1,4 +1,5 @@
 using mednik.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;
@@ -41,9 +42,17 @@ public class PostsRepository : IPostsRepository
         }
     }
 
-    public async Task<bool> DownloadFile(ObjectId id)
+    public async Task<FileStreamResult> DownloadFile(ObjectId id)
     {
-        throw new NotImplementedException();
+        var bytes = await _gridFsBucket.DownloadAsBytesAsync(id);
+        
+        MemoryStream memoryStream = new MemoryStream();
+        
+        await memoryStream.WriteAsync(bytes, 0, bytes.Length);
+
+        memoryStream.Seek(0, SeekOrigin.Begin);
+
+        return new FileStreamResult(memoryStream, "application/pdf");
     }
     
     public async Task DeleteFileAsync(Guid id)

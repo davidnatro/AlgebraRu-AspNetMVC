@@ -1,4 +1,5 @@
 using mednik.Models;
+using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 
 namespace mednik.Data.Posts;
@@ -11,5 +12,5 @@ public interface IPostsRepository
 
     Task UploadFile(string name, string description, IFormFile file);
     
-    Task<bool> DownloadFile(ObjectId id);
+    Task<FileStreamResult> DownloadFile(ObjectId id);
 }
