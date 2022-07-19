@@ -38,11 +38,14 @@
                             </button>
                         </form>
                     }
-                    <embed src="@Url.Action("Render", "Posts", new { imgUrl = post.ImageURL })" class="card-img-top" style="width: 100%; height: 200px">
+                    @{
+
+                    }
+                    <embed src="@Url.Action("Render", "Posts", new {imgUrl = post.ImageURL})" class="card-img-top" style="width: 100%; height: 200px">
                     <div class="card-body">
                         <h5 class="card-title text-white">@post.Name</h5>
                         <p class="card-text text-white">@post.Description</p>
-                        <a href="#" class="btn btn-primary">Открыть</a>
+                        <a class="btn btn-primary" href="@Url.Action("Render", "Posts", new {imgUrl = post.ImageURL})" target="_blank">Открыть</a>
                     </div>
                 </div>
             </div>

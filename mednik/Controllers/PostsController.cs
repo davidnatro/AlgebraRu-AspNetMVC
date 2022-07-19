@@ -23,6 +23,11 @@ public class PostsController : Controller
 
         return await _postsRepository.DownloadFile(id);
     }
+
+    public async Task<IActionResult> Post(string imgUrl)
+    {
+        return View(imgUrl);
+    }
     
     public async Task<IActionResult> Save(string? name, string description, IFormFile? data)
     { 
