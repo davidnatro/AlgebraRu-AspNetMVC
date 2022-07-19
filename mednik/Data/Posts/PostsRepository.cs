@@ -25,7 +25,7 @@ public class PostsRepository : IPostsRepository
     }
 
     public async Task<IEnumerable<Post>> GetAllAsync() => await _dbContext.Posts.ToListAsync();
-    
+
     public async Task UploadFile(string name, string description, IFormFile file)
     {
         using (MemoryStream stream = new MemoryStream())
@@ -45,9 +45,27 @@ public class PostsRepository : IPostsRepository
     {
         throw new NotImplementedException();
     }
-
-    public async Task<bool> DeleteFile(ObjectId id)
+    
+    public async Task DeleteFileAsync(Guid id)
     {
-        throw new NotImplementedException();
+        var post = await _dbContext.Posts.FirstOrDefaultAsync(p => p.Id == id);
+        
+        if (post != null)
+        {
+            try
+            {
+                var imgUrl = post.ImageURL;
+                _dbContext.Posts.Remove(post);
+                await _dbContext.SaveChangesAsync();
+
+                var objectId = new ObjectId(imgUrl);
+
+                await _gridFsBucket.DeleteAsync(objectId);
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception.Message);
+            }
+        }
     }
 }

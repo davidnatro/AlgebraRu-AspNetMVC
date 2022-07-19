@@ -7,9 +7,9 @@ public interface IPostsRepository
 {
     Task<IEnumerable<Post>> GetAllAsync();
 
+    Task DeleteFileAsync(Guid id);
+
     Task UploadFile(string name, string description, IFormFile file);
     
     Task<bool> DownloadFile(ObjectId id);
-    
-    Task<bool> DeleteFile(ObjectId id);
 }
