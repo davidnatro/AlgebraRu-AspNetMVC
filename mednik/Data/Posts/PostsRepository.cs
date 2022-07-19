@@ -1,4 +1,5 @@
 using mednik.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -23,7 +24,8 @@ public class PostsRepository : IPostsRepository
         _gridFsBucket = new GridFSBucket(database);
     }
 
-
+    public async Task<IEnumerable<Post>> GetAllAsync() => await _dbContext.Posts.ToListAsync();
+    
     public async Task UploadFile(string name, string description, IFormFile file)
     {
         using (MemoryStream stream = new MemoryStream())
