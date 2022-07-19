@@ -17,7 +17,7 @@ public class ServicesRepository : IServicesRepository
     {
         try
         {
-            await _dbContext.AddAsync(entity);
+            await _dbContext.Services.AddAsync(entity);
             await _dbContext.SaveChangesAsync();
             return true;
         }

@@ -1,5 +1,3 @@
-using mednik.Data.Base;
-
 namespace mednik.Models;
 
 public class Post

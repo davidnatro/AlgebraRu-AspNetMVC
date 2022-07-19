@@ -553,6 +553,9 @@
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
+      <PackageReference Include="MongoDB.Bson" Version="2.16.1" />
+      <PackageReference Include="MongoDB.Driver" Version="2.16.1" />
+      <PackageReference Include="MongoDB.Driver.GridFS" Version="2.16.1" />
     </ItemGroup>
 
 </Project>
