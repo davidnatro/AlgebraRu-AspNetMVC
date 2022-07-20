@@ -1,10 +1,10 @@
 using mednik.Data;
-using mednik.Data.Posts;
+using mednik.Data.Repositories.Contacts;
+using mednik.Data.Repositories.Posts;
 using mednik.Models;
 using mednik.Data.Repositories.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using MongoDB.Driver;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +18,8 @@ builder.Services.Configure<MongoDBSettings>(builder.Configuration.GetSection("Mo
 builder.Services.AddScoped<IPostsRepository, PostsRepository>();
 
 builder.Services.AddScoped<IServicesRepository, ServicesRepository>();
+
+builder.Services.AddScoped<IContactsRepository, ContactsRepository>();
 
 builder.Services.AddIdentity<User, IdentityRole>(options =>
 {

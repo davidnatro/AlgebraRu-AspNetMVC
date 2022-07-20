@@ -6,7 +6,7 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.GridFS;
 
-namespace mednik.Data.Posts;
+namespace mednik.Data.Repositories.Posts;
 
 public class PostsRepository : IPostsRepository
 {

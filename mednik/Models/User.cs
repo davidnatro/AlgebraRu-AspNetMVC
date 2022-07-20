@@ -5,7 +5,9 @@ namespace mednik.Models;
 
 public class User : IdentityUser
 {
-    public string? ImgURL { get; set; }
+    public string? FullName { get; set; }
+    
+    public string? ImgUrl { get; set; }
     
     public string? Telegram { get; set; }
 }

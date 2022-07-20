@@ -1,5 +1,5 @@
 using mednik.Data;
-using mednik.Data.Posts;
+using mednik.Data.Repositories.Posts;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 

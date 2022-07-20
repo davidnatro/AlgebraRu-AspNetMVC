@@ -1,12 +1,31 @@
+using mednik.Data;
+using mednik.Data.Repositories.Contacts;
+using io = System.IO;
 using Microsoft.AspNetCore.Mvc;
 
 namespace mednik.Controllers;
 
 public class ContactsController : Controller
 {
-    // GET
-    public IActionResult Index()
+    private readonly IContactsRepository _contactsRepository;
+
+    public ContactsController(IContactsRepository contactsRepository)
     {
-        return View();
+        _contactsRepository = contactsRepository;
+    }
+
+    public async Task<IActionResult> Edit(string id, string? name, string? telegram)
+    {
+        await _contactsRepository.ChangeData(id, name, telegram);
+
+        return RedirectToAction("Index");
+    }
+    
+    // GET
+    public async Task<IActionResult> Index()
+    {
+        var users = await _contactsRepository.GetAllAsync();
+
+        return View(users);
     }
 }

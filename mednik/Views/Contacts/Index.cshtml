@@ -1,24 +1,56 @@
-
+@model IEnumerable<User>
 
 @{
     Layout = "_Layout";
 }
 
 <!DOCTYPE html>
-
 <html>
 <head>
     <title>Контакты</title>
 </head>
 <body>
-<div>
-  <section>
-      <img src="/Images/Medved.jpg" class="img-thumbnail avatar rounded mx-auto d-block">
-  
-      <h4 class="text-white text-center"><br>Медведь Никита Юрьевич</h4>
-      <h5 class="text-white text-center">Telegram: </h5>
-      <h5 class="text-white text-center">Email: </h5>
-  </section>
+<div class="container">
+    @foreach (var user in Model)
+    {
+        @if (User?.Identity?.IsAuthenticated ?? false)
+        {
+            <div class="row" style="margin-bottom: 50px">
+                <img src="/Images/Medved.jpg" class="img-thumbnail avatar rounded mx-auto d-block">
+            </div>
+
+            <div class="row">
+                <div class="col-sm-4"></div>
+
+                <form asp-controller="Contacts" asp-action="Edit" method="post" class="col-sm-4">
+                    <div class="row">
+                        <input type="hidden" name="id" value="@user.Id"/>
+                    </div>
+                    <div class="row">
+                        <input type="text" name="name" value="@user.FullName" placeholder="Имя"/>
+                    </div>
+                    <div class="row">
+                        <input type="text" name="telegram" value="@user.Telegram" placeholder="Telegram"/>
+                    </div>
+                    <div class="row">
+                        <button class="btn btn-primary" type="submit">Сохранить</button>
+                    </div>
+                </form>
+
+                <div class="col-sm-4"></div>
+            </div>
+        }
+        else
+        {
+            <img src="/Images/Medved.jpg" class="img-thumbnail avatar rounded mx-auto d-block">
+
+            <h4 class="text-white text-center">
+                <br>@user.FullName
+            </h4>
+            <h5 class="text-white text-center">Telegram: @user.Telegram</h5>
+            <h5 class="text-white text-center">Email: @user.Email</h5>
+        }
+    }
 </div>
 </body>
 </html>

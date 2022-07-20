@@ -1,6 +1,6 @@
 using mednik.Data;
 using mednik.Data.Base;
-using mednik.Data.Posts;
+using mednik.Data.Repositories.Posts;
 using mednik.Data.Repositories.Services;
 using mednik.Models;
 using Microsoft.AspNetCore.Authorization;

@@ -60,3 +60,7 @@ body {
 .no-link-line {
     text-decoration: none;
 }
+
+.marg {
+    margin-bottom: 10px;
+}

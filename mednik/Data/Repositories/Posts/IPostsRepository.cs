@@ -2,7 +2,7 @@ using mednik.Models;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 
-namespace mednik.Data.Posts;
+namespace mednik.Data.Repositories.Posts;
 
 public interface IPostsRepository
 {
