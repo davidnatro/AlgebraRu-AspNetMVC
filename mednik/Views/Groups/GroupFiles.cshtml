@@ -1,4 +1,4 @@
-@model IEnumerable<Post>
+@model GroupIdAndPosts
 
 @{
     Layout = "_Layout";
@@ -8,7 +8,7 @@
 
 <html>
 <head>
-    <title>Разборы</title>
+    <title>Посты</title>
 </head>
 <body>
 <div class="container">
@@ -17,13 +17,18 @@
         <div class="row" style="margin-bottom: 50px">
             <div class="col"></div>
             <div class="col-xs-2 col-sm-2">
-                <a class="btn btn-primary" asp-controller="Posts" asp-action="Index">Добавить +</a>
+                <form asp-controller="Groups" asp-action="AddPost" method="post">
+                    <input type="hidden" name="groupId" value="@Model.GroupId"/>
+                    <button type="submit" class="btn btn-primary">
+                        Добавить +
+                    </button>
+                </form>
             </div>
         </div>
     }
 
     <section class="row">
-        @foreach (Post post in Model)
+        @foreach (Post post in Model.Posts)
         {
             <div class="col-xs-6 col-md-6 col-lg-4">
                 <div class="card post" style="background-color: #253D66">

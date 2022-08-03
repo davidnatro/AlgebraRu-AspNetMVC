@@ -1,0 +1,29 @@
+@model Guid
+
+@{
+    Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="~/login.css"/>
+    <title>Добавить</title>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col"></div>
+        <div class="col login">
+            <form class="box" asp-controller="Groups" asp-action="AddGroupToSubject" method="post">
+                <h1></h1>
+                <input type="hidden" value="@Model" name="id"/>
+                <input type="text" placeholder="Название" name="name">
+                <input type="submit" value="Добавить">
+            </form>
+        </div>
+        <div class="col"></div>
+    </div>
+</div>
+</body>
+</html>

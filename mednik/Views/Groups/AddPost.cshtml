@@ -1,0 +1,32 @@
+@model Guid
+
+@{
+    Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link rel="stylesheet" href="~/login.css"/>
+    <title>Добавить</title>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col"></div>
+        <div class="col login">
+            <form class="box" asp-controller="Posts" asp-action="SaveToGroup" method="post" enctype="multipart/form-data">
+                <h1></h1>
+                <input type="hidden" name="groupId" value="@Model"/>
+                <input type="text" placeholder="Название" name="name">
+                <input type="text" placeholder="Описание" name="description">
+                <input type="file" class="text-white" name="data" accept="application/pdf"/>
+                <input type="submit" value="Сохранить">
+            </form>
+        </div>
+        <div class="col"></div>
+    </div>
+</div>
+</body>
+</html>

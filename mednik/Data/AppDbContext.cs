@@ -6,6 +6,8 @@ namespace mednik.Data;
 
 public class AppDbContext : IdentityDbContext<User>
 {
+    public DbSet<Subject> Subjects { get; set; }
+    
     public DbSet<Group> Groups { get; set; }
     
     public DbSet<Post> Posts { get; set; }

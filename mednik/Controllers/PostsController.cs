@@ -1,5 +1,6 @@
 using mednik.Data;
 using mednik.Data.Repositories.Posts;
+using mednik.Models;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 
@@ -24,14 +25,22 @@ public class PostsController : Controller
         return await _postsRepository.DownloadFile(id);
     }
 
-    public async Task<IActionResult> Save(string? name, string description, IFormFile? data)
+    public async Task<IActionResult> Save(string? name, string? description, IFormFile? data)
     { 
         if (name != null && data != null)
             await _postsRepository.UploadFile(name, description, data);
 
         return Redirect("/Home");
     }
+    
+    public async Task<IActionResult> SaveToGroup(Guid groupId, string? name, string? description, IFormFile? data)
+    {
+        await _postsRepository.UploadFile(name, description, data, groupId);
 
+        return Redirect("/Home");
+    }
+
+    
     public async Task<IActionResult> Delete(Guid Id)
     {
         await _postsRepository.DeleteFileAsync(Id);

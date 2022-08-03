@@ -1,8 +1,10 @@
 using mednik.Data;
 using mednik.Data.Repositories.Contacts;
+using mednik.Data.Repositories.Groups;
 using mednik.Data.Repositories.Posts;
 using mednik.Models;
 using mednik.Data.Repositories.Services;
+using mednik.Data.Repositories.Subjects;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,16 +12,28 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
+
+#region Databases
 
 builder.Services.AddDbContext<AppDbContext>(options
     => options.UseSqlServer(builder.Configuration.GetConnectionString("Azure")));
 
 builder.Services.Configure<MongoDBSettings>(builder.Configuration.GetSection("MongoDB"));
+
+#endregion
+
+#region Repositories
+
 builder.Services.AddScoped<IPostsRepository, PostsRepository>();
-
 builder.Services.AddScoped<IServicesRepository, ServicesRepository>();
-
 builder.Services.AddScoped<IContactsRepository, ContactsRepository>();
+builder.Services.AddScoped<ISubjectsRepository, SubjectsRepository>();
+builder.Services.AddScoped<IGroupsRepository, GroupsRepository>();
+
+#endregion
+
+#region Identity
 
 builder.Services.AddIdentity<User, IdentityRole>(options =>
 {
@@ -33,6 +47,8 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
 }).AddEntityFrameworkStores<AppDbContext>();
 
 builder.Services.ConfigureApplicationCookie(options => options.LoginPath = "/Login/Index");
+
+#endregion
 
 var app = builder.Build();
 

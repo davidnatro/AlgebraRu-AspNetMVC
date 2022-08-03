@@ -17,7 +17,7 @@ public class PostsRepository : IPostsRepository
     public PostsRepository(IOptions<MongoDBSettings> mongoDBSettings, AppDbContext dbContext)
     {
         _dbContext = dbContext;
-        
+
         var client = new MongoClient(mongoDBSettings.Value.ConnectionURI);
 
         var database = client.GetDatabase(mongoDBSettings.Value.DatabaseName);
@@ -27,38 +27,50 @@ public class PostsRepository : IPostsRepository
 
     public async Task<IEnumerable<Post>> GetAllAsync() => await _dbContext.Posts.ToListAsync();
 
-    public async Task UploadFile(string name, string description, IFormFile file)
+    public async Task UploadFile(string name, string description, IFormFile file, Guid? groupId = null)
     {
-        using (MemoryStream stream = new MemoryStream())
+        try
         {
+            var stream = new MemoryStream();
+
             await file.CopyToAsync(stream);
             stream.Seek(0, SeekOrigin.Begin);
-            
+
             var id = await _gridFsBucket.UploadFromStreamAsync(name, stream);
-            
-            Post post = new Post() {Name = name, Description = description, ImageURL = id.ToString()};
+
+            Post post = new Post()
+            {
+                Name = name,
+                Description = description,
+                ImageURL = id.ToString(),
+                GroupId = groupId
+            };
             await _dbContext.Posts.AddAsync(post);
             await _dbContext.SaveChangesAsync();
+        }
+        catch (Exception exception)
+        {
+            Console.WriteLine(exception.Message);
         }
     }
 
     public async Task<FileStreamResult> DownloadFile(ObjectId id)
     {
         var bytes = await _gridFsBucket.DownloadAsBytesAsync(id);
-        
+
         MemoryStream memoryStream = new MemoryStream();
-        
+
         await memoryStream.WriteAsync(bytes, 0, bytes.Length);
 
         memoryStream.Seek(0, SeekOrigin.Begin);
 
         return new FileStreamResult(memoryStream, "application/pdf");
     }
-    
+
     public async Task DeleteFileAsync(Guid id)
     {
         var post = await _dbContext.Posts.FirstOrDefaultAsync(p => p.Id == id);
-        
+
         if (post != null)
         {
             try

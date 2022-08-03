@@ -10,9 +10,6 @@ public class ServicesRepository : IServicesRepository
 
     public async Task<IEnumerable<Models.Services>> GetAllAsync() => await _dbContext.Services.ToListAsync();
 
-    public async Task<Models.Services?> GetByIdAsync(Guid id) =>
-        await _dbContext.Services.FirstOrDefaultAsync(entity => entity.Id == id);
-
     public async Task<bool> AddAsync(Models.Services entity)
     {
         try
@@ -24,23 +21,9 @@ public class ServicesRepository : IServicesRepository
         catch (Exception e)
         {
             Console.WriteLine(e.Message);
-            return false;
         }
-    }
-
-    public async Task<bool> UpdateAsync(Guid id, Models.Services newEntity)
-    {
-        try
-        {
-            _dbContext.Update(newEntity);
-            await _dbContext.SaveChangesAsync(); 
-            return true;
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e.Message); 
-            return false;
-        }
+        
+        return false;
     }
 
     public async Task<bool> DeleteAsync(Guid id)

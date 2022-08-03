@@ -10,7 +10,7 @@ public interface IPostsRepository
 
     Task DeleteFileAsync(Guid id);
 
-    Task UploadFile(string name, string description, IFormFile file);
+    Task UploadFile(string name, string description, IFormFile file, Guid? groupId = null);
     
     Task<FileStreamResult> DownloadFile(ObjectId id);
 }

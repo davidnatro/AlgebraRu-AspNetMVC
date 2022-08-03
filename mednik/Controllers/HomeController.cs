@@ -21,7 +21,8 @@ public class HomeController : Controller
     // GET
     public async Task<IActionResult> Index()
     {
-        var posts = await _postsRepository.GetAllAsync();
+        var posts = (await _postsRepository.GetAllAsync()).Where(post => post.GroupId == null);
+        
         return View(posts);
     }
 }
