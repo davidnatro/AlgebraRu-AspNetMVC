@@ -3,10 +3,12 @@ using mednik.Data.Repositories.Posts;
 using mednik.Data.Repositories.Subjects;
 using mednik.Models;
 using mednik.Models.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace mednik.Controllers;
 
+[Authorize]
 public class GroupsController : Controller
 {
     private readonly ISubjectsRepository _subjectsRepository;
@@ -28,6 +30,7 @@ public class GroupsController : Controller
 
     public IActionResult AddPost(Guid groupId) => View(groupId);
 
+    [AllowAnonymous]
     public async Task<IActionResult> GroupFiles(Guid id)
     {
         GroupIdAndPosts idAndPosts = new GroupIdAndPosts()

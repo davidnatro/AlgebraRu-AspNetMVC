@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations;
 using mednik.Models;
 using mednik.Models.DTO;
 using Microsoft.AspNetCore.Authorization;

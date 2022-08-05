@@ -1,11 +1,13 @@
 using mednik.Data;
 using mednik.Data.Repositories.Posts;
 using mednik.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 
 namespace mednik.Controllers;
 
+[Authorize]
 public class PostsController : Controller
 {
     private readonly IPostsRepository _postsRepository;
@@ -18,6 +20,7 @@ public class PostsController : Controller
     public IActionResult Index() => View();
 
     [HttpGet]
+    [AllowAnonymous]
     public async Task<FileStreamResult> Render(string imgUrl)
     {
         var id = new ObjectId(imgUrl);

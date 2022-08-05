@@ -1,5 +1,6 @@
 using mednik.Data;
 using mednik.Data.Repositories.Contacts;
+using Microsoft.AspNetCore.Authorization;
 using io = System.IO;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,6 +15,7 @@ public class ContactsController : Controller
         _contactsRepository = contactsRepository;
     }
 
+    [Authorize]
     public async Task<IActionResult> Edit(string id, string? name, string? telegram)
     {
         await _contactsRepository.ChangeData(id, name, telegram);

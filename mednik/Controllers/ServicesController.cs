@@ -1,10 +1,12 @@
 using mednik.Data;
 using mednik.Data.Repositories.Services;
 using mednik.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace mednik.Controllers;
 
+[Authorize]
 public class ServicesController : Controller
 {
     private readonly IServicesRepository _repository;

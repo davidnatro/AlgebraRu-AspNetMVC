@@ -1,17 +1,11 @@
-using mednik.Data;
-using mednik.Data.Base;
 using mednik.Data.Repositories.Posts;
-using mednik.Data.Repositories.Services;
-using mednik.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace mednik.Controllers;
 
-
 public class HomeController : Controller
 {
-    private IPostsRepository _postsRepository;
+    private readonly IPostsRepository _postsRepository;
 
     public HomeController(IPostsRepository postsRepository)
     {
