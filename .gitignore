@@ -1,5 +1,7 @@
 *.json
 *.config
+mednik/wwwroot/Images
+**/wwwroot/Images
 
 # Created by https://www.toptal.com/developers/gitignore/api/aspnetcore,csharp,rider,macos
 # Edit at https://www.toptal.com/developers/gitignore?templates=aspnetcore,csharp,rider,macos
