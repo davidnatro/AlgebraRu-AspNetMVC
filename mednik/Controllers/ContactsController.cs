@@ -1,4 +1,3 @@
-using mednik.Data;
 using mednik.Data.Repositories.Contacts;
 using Microsoft.AspNetCore.Authorization;
 using io = System.IO;

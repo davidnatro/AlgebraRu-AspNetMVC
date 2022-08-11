@@ -43,7 +43,7 @@ public class GroupsRepository : IGroupsRepository
         return false;
     }
 
-    public async Task<bool> DeleteAsync(Guid id)
+    public async Task<bool> DeleteByIdAsync(Guid id)
     {
         var group = await _dbContext.Groups.FirstOrDefaultAsync(group => group.Id == id);
 

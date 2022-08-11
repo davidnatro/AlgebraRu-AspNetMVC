@@ -48,7 +48,7 @@ public class SubjectsRepository : ISubjectsRepository
         var groups = (await _groupsRepository.GetAllAsync()).Where(group => group.SubjectId == id);
         foreach (var group in groups)
         {
-            await _groupsRepository.DeleteAsync(group.Id);
+            await _groupsRepository.DeleteByIdAsync(group.Id);
         }
         
         _dbContext.Remove(subject);

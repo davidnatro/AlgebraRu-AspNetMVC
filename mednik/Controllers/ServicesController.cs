@@ -1,4 +1,3 @@
-using mednik.Data;
 using mednik.Data.Repositories.Services;
 using mednik.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -11,9 +10,9 @@ public class ServicesController : Controller
 {
     private readonly IServicesRepository _repository;
 
-    public ServicesController(AppDbContext repository)
+    public ServicesController(IServicesRepository repository)
     {
-        _repository = new ServicesRepository(repository);
+        _repository = repository;
     }
 
     public IActionResult Index() => View();
@@ -21,7 +20,7 @@ public class ServicesController : Controller
     [HttpPost]
     public async Task<IActionResult> AddService(string name, string link)
     {
-        Services service = new Services() {Name = name, Link = link};
+        Services service = new Services() {Id = Guid.NewGuid() ,Name = name, Link = link};
 
         await _repository.AddAsync(service);
 

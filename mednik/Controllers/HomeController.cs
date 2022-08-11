@@ -1,8 +1,10 @@
 using mednik.Data.Repositories.Posts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace mednik.Controllers;
 
+[Authorize]
 public class HomeController : Controller
 {
     private readonly IPostsRepository _postsRepository;
@@ -12,10 +14,10 @@ public class HomeController : Controller
         _postsRepository = postsRepository;
     }
     
-    // GET
+    [AllowAnonymous]
     public async Task<IActionResult> Index()
     {
-        var posts = (await _postsRepository.GetAllAsync()).Where(post => post.GroupId == null);
+        var posts = await _postsRepository.GetAllByGroupIdAsync(null);
         
         return View(posts);
     }

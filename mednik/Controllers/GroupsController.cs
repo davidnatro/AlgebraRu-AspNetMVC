@@ -36,7 +36,7 @@ public class GroupsController : Controller
         GroupIdAndPosts idAndPosts = new GroupIdAndPosts()
         {
             GroupId = id,
-            Posts = (await _postsRepository.GetAllAsync()).Where(post => post.GroupId == id)
+            Posts = await _postsRepository.GetAllByGroupIdAsync(id)
         };
 
         return View(idAndPosts);
@@ -46,6 +46,7 @@ public class GroupsController : Controller
     {
         Group group = new Group()
         {
+            Id = Guid.NewGuid(),
             Name = name,
             SubjectId = id,
             Subject = await _subjectsRepository.GetByIdAsync(id)
@@ -58,7 +59,7 @@ public class GroupsController : Controller
 
     public async Task<IActionResult> DeleteGroupFromSubject(Guid id)
     {
-        await _groupsRepository.DeleteAsync(id);
+        await _groupsRepository.DeleteByIdAsync(id);
 
         return Redirect($"/Home/Index");
     }

@@ -1,4 +1,6 @@
+using mednik.Data.Repositories.Posts;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 namespace mednik.Data.Repositories.Services;
 
@@ -6,7 +8,10 @@ public class ServicesRepository : IServicesRepository
 {
     private readonly AppDbContext _dbContext;
 
-    public ServicesRepository(AppDbContext dbContext) => _dbContext = dbContext;
+    public ServicesRepository(AppDbContext dbContext)
+    {
+        _dbContext = dbContext;
+    }
 
     public async Task<IEnumerable<Models.Services>> GetAllAsync() => await _dbContext.Services.ToListAsync();
 

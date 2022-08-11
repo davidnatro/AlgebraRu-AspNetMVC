@@ -12,5 +12,5 @@ public interface IGroupsRepository
 
     Task<bool> AddAsync(Group group);
 
-    Task<bool> DeleteAsync(Guid id);
+    Task<bool> DeleteByIdAsync(Guid id);
 }

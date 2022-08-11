@@ -27,6 +27,9 @@ public class PostsRepository : IPostsRepository
 
     public async Task<IEnumerable<Post>> GetAllAsync() => await _dbContext.Posts.ToListAsync();
 
+    public async Task<IEnumerable<Post>> GetAllByGroupIdAsync(Guid? id)
+        => (await _dbContext.Posts.ToListAsync()).Where(group => group.Id == id);
+
     public async Task UploadFile(string name, string description, IFormFile file, Guid? groupId = null)
     {
         try

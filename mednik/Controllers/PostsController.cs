@@ -1,6 +1,4 @@
-using mednik.Data;
 using mednik.Data.Repositories.Posts;
-using mednik.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
@@ -12,7 +10,7 @@ public class PostsController : Controller
 {
     private readonly IPostsRepository _postsRepository;
 
-    public PostsController(IPostsRepository postsRepository, AppDbContext appDbContext)
+    public PostsController(IPostsRepository postsRepository)
     {
         _postsRepository = postsRepository;
     }

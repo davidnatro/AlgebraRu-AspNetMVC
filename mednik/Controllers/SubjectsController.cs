@@ -2,10 +2,12 @@ using mednik.Data.Repositories.Groups;
 using mednik.Data.Repositories.Subjects;
 using mednik.Models;
 using mednik.Models.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace mednik.Controllers;
 
+[Authorize]
 public class SubjectsController : Controller
 {
     private readonly ISubjectsRepository _subjectsRepository;
@@ -37,6 +39,7 @@ public class SubjectsController : Controller
     {
         var subject = new Subject()
         {
+            Id = Guid.NewGuid(),
             Name = name
         };
 

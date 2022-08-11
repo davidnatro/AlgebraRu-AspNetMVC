@@ -19,17 +19,19 @@ builder.Services.AddRazorPages();
 builder.Services.AddDbContext<AppDbContext>(options
     => options.UseSqlServer(builder.Configuration.GetConnectionString("Azure")));
 
-builder.Services.Configure<MongoDBSettings>(builder.Configuration.GetSection("MongoDB"));
+builder.Services.Configure<MsSqlSettings>(builder.Configuration.GetSection("MsSQLSettings"));
+
+builder.Services.Configure<MongoDBSettings>(builder.Configuration.GetSection("MongoDBSettings"));
 
 #endregion
 
 #region Repositories
 
-builder.Services.AddScoped<IPostsRepository, PostsRepository>();
-builder.Services.AddScoped<IServicesRepository, ServicesRepository>();
-builder.Services.AddScoped<IContactsRepository, ContactsRepository>();
-builder.Services.AddScoped<ISubjectsRepository, SubjectsRepository>();
-builder.Services.AddScoped<IGroupsRepository, GroupsRepository>();
+builder.Services.AddScoped<IPostsRepository, PostsRepositoryDapper>();
+builder.Services.AddScoped<IServicesRepository, ServicesRepositoryDapper>();
+builder.Services.AddScoped<IContactsRepository, ContactsRepositoryDapper>();
+builder.Services.AddScoped<ISubjectsRepository, SubjectsRepositoryDapper>();
+builder.Services.AddScoped<IGroupsRepository, GroupsRepositoryDapper>();
 
 #endregion
 

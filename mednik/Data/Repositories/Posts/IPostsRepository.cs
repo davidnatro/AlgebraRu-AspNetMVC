@@ -8,6 +8,8 @@ public interface IPostsRepository
 {
     Task<IEnumerable<Post>> GetAllAsync();
 
+    Task<IEnumerable<Post>> GetAllByGroupIdAsync(Guid? id);
+
     Task DeleteFileAsync(Guid id);
 
     Task UploadFile(string name, string description, IFormFile file, Guid? groupId = null);

@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations.Schema;
-using mednik.Data.Base;
 
 namespace mednik.Models;
 
