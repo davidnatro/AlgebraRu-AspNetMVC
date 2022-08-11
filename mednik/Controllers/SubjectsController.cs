@@ -65,6 +65,7 @@ public class SubjectsController : Controller
     /// </summary>
     /// <param name="id">Id предмета</param>
     /// <returns>Страница со списком групп (выбранного предмета)</returns>
+    [AllowAnonymous]
     public async Task<IActionResult> Groups(Guid id)
     {
         var groups = await _groupsRepository.GetAllBySubjectIdAsync(id);

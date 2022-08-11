@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial_scale=1.0">
-    <link rel="stylesheet" href="~/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
     <link rel="stylesheet" href="~/main.css">
     <link rel="icon" type="image/png" sizes="180x180" href="~/Icon.png"/>
@@ -127,8 +127,8 @@
 @RenderBody()
 
 @{ string pop = "@popperjs"; }
-<script src="~/node_modules/@pop/core/dist/umd/popper.js"></script>
-<script src="~/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/node_modules/@pop/core/dist/umd/popper.js"></script>
+<script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
