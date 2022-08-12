@@ -1,3 +1,5 @@
+@model PostDTO
+
 @{
     Layout = "_Layout";
 }
@@ -15,10 +17,10 @@
         <div class="col"></div>
         <div class="col login">
             <form class="box" asp-controller="Posts" asp-action="Save" method="post" enctype="multipart/form-data">
-                <h1></h1>
-                <input type="text" placeholder="Название" name="name">
-                <input type="text" placeholder="Описание" name="description">
-                <input type="file" class="text-white" name="data" accept="application/pdf"/>
+                <div class="row text-white" asp-validation-summary="ModelOnly"></div>
+                <input type="text" placeholder="Название" name="Name">
+                <input type="text" placeholder="Описание" name="Description">
+                <input type="file" class="text-white" name="FileData" accept="application/pdf"/>
                 <input type="submit" value="Сохранить">
             </form>
         </div>

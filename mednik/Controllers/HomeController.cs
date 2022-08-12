@@ -10,9 +10,8 @@ public class HomeController : Controller
     private readonly IPostsRepository _postsRepository;
 
     public HomeController(IPostsRepository postsRepository)
-    {
-        _postsRepository = postsRepository;
-    }
+        => _postsRepository = postsRepository;
+    
     
     [AllowAnonymous]
     public async Task<IActionResult> Index()

@@ -11,6 +11,14 @@
     margin-top: 0;
 }
 
+.dropdown-item:hover {
+    background-color: #253D66;
+}
+
+.dropdown-item:active {
+    background-color: #435066;
+}
+
 .drop-item {
     width: 110%;
 }

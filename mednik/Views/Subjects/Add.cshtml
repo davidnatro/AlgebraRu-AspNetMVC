@@ -1,3 +1,5 @@
+@model Subject
+
 @{
     Layout = "_Layout";
 }
@@ -16,6 +18,7 @@
         <div class="col login">
             <form class="box" asp-controller="Subjects" asp-action="AddSubjectToDB" method="post">
                 <h1></h1>
+                <div class="row text-white" asp-validation-summary="ModelOnly"></div>
                 <input type="text" placeholder="Название предмета" name="name">
                 <input type="submit" value="Добавить">
             </form>

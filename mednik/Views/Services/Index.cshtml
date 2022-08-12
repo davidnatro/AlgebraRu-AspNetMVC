@@ -1,3 +1,5 @@
+@model Services
+
 @{
     Layout = "_Layout";
 }
@@ -16,6 +18,7 @@
         <div class="col login">
             <form class="box" asp-controller="Services" asp-action="AddService" method="post">
                 <h1></h1>
+                <div class="row text-white" asp-validation-summary="ModelOnly"></div>
                 <input type="text" placeholder="Название" name="name">
                 <input type="text" placeholder="Ссылка" name="link">
                 <input type="submit" value="Добавить">

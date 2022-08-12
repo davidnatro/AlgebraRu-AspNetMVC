@@ -8,21 +8,25 @@ namespace mednik.Controllers;
 [Authorize]
 public class ServicesController : Controller
 {
-    private readonly IServicesRepository _repository;
+    private readonly IServicesRepository _servicesRepository;
 
-    public ServicesController(IServicesRepository repository)
-    {
-        _repository = repository;
-    }
+    public ServicesController(IServicesRepository servicesRepository)
+        => _servicesRepository = servicesRepository;
 
     public IActionResult Index() => View();
 
     [HttpPost]
     public async Task<IActionResult> AddService(string name, string link)
     {
-        Services service = new Services() {Id = Guid.NewGuid() ,Name = name, Link = link};
+        var service = new Services() {Id = Guid.NewGuid(), Name = name, Link = link};
 
-        await _repository.AddAsync(service);
+        if (!ModelState.IsValid)
+        {
+            ModelState.AddModelError(String.Empty, "Поля не должны оставаться пустыми!");
+            return View("Index", service);
+        }
+
+        await _servicesRepository.AddAsync(service);
 
         return RedirectToAction("Index", "Home");
     }
@@ -30,8 +34,8 @@ public class ServicesController : Controller
     [HttpPost]
     public async Task<IActionResult> Delete(string id)
     {
-        await _repository.DeleteAsync(new Guid(id));
-        
+        await _servicesRepository.DeleteAsync(new Guid(id));
+
         return RedirectToAction("Index", "Home");
     }
 }

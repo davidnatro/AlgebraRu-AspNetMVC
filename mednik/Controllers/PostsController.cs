@@ -1,4 +1,6 @@
 using mednik.Data.Repositories.Posts;
+using mednik.Models;
+using mednik.Models.DTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
@@ -11,10 +13,9 @@ public class PostsController : Controller
     private readonly IPostsRepository _postsRepository;
 
     public PostsController(IPostsRepository postsRepository)
-    {
-        _postsRepository = postsRepository;
-    }
-    
+        => _postsRepository = postsRepository;
+
+
     public IActionResult Index() => View();
 
     [HttpGet]
@@ -26,22 +27,19 @@ public class PostsController : Controller
         return await _postsRepository.DownloadFile(id);
     }
 
-    public async Task<IActionResult> Save(string? name, string? description, IFormFile? data)
-    { 
-        if (name != null && data != null)
-            await _postsRepository.UploadFile(name, description, data);
-
-        return Redirect("/Home");
-    }
-    
-    public async Task<IActionResult> SaveToGroup(Guid groupId, string? name, string? description, IFormFile? data)
+    public async Task<IActionResult> Save(PostDTO postDto)
     {
-        await _postsRepository.UploadFile(name, description, data, groupId);
+        if (!ModelState.IsValid)
+        {
+            ModelState.AddModelError(string.Empty, "Поля \"Название\" и \"Файл\" не должны быть пустыми!");
+            return View("Index", postDto);
+        }
+
+        await _postsRepository.UploadFile(postDto.Name, postDto.Description, postDto.FileData);
 
         return Redirect("/Home");
     }
 
-    
     public async Task<IActionResult> Delete(Guid Id)
     {
         await _postsRepository.DeleteFileAsync(Id);

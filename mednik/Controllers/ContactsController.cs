@@ -10,9 +10,8 @@ public class ContactsController : Controller
     private readonly IContactsRepository _contactsRepository;
 
     public ContactsController(IContactsRepository contactsRepository)
-    {
-        _contactsRepository = contactsRepository;
-    }
+        => _contactsRepository = contactsRepository;
+    
 
     [Authorize]
     public async Task<IActionResult> Edit(string id, string? name, string? telegram)

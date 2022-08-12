@@ -25,10 +25,7 @@ public class SubjectsController : Controller
     /// Страница для добавления предмета.
     /// </summary>
     /// <returns>Страница для добавления предмета.</returns>
-    public IActionResult Add()
-    {
-        return View();
-    }
+    public IActionResult Add() => View();
 
     /// <summary>
     /// Добавляет предмет в базу данных.
@@ -42,6 +39,12 @@ public class SubjectsController : Controller
             Id = Guid.NewGuid(),
             Name = name
         };
+
+        if (!ModelState.IsValid)
+        {
+            ModelState.AddModelError(string.Empty, "Поле не должно оставаться пустым!");
+            return View("Add", subject);
+        }
 
         await _subjectsRepository.AddAsync(subject);
         

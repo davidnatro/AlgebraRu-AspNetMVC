@@ -51,7 +51,6 @@ public class LoginController : Controller
                     return Redirect(returnUrl ?? "/");
                 }
             }
-
             ModelState.AddModelError(nameof(LoginModel.Email), "Invalid user or password");
         }
 
