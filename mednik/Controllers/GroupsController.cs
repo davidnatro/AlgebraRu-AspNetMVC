@@ -29,7 +29,7 @@ public class GroupsController : Controller
 
     public IActionResult AddGroup(Guid id)
     {
-        SubjectIdAndGroupName subjectIdAndGroupName = new SubjectIdAndGroupName()
+        var subjectIdAndGroupName = new SubjectIdAndGroupName()
         {
             SubjectId = id
         };
@@ -39,7 +39,7 @@ public class GroupsController : Controller
 
     public IActionResult AddPost(Guid groupId)
     {
-        GroupPostDTO postDto = new GroupPostDTO()
+        var postDto = new GroupPostDTO()
         {
             GroupdId = groupId
         };
@@ -47,6 +47,11 @@ public class GroupsController : Controller
         return View(postDto);
     }
 
+    /// <summary>
+    /// Сохраняет файл в группу
+    /// </summary>
+    /// <param name="postDto">DTO файла</param>
+    /// <returns>Список файлов принадлежащих группе</returns>
     public async Task<IActionResult> SaveFileToGroup(GroupPostDTO postDto)
     {
         if (!ModelState.IsValid)
@@ -57,13 +62,13 @@ public class GroupsController : Controller
 
         await _postsRepository.UploadFile(postDto.Name, postDto.Description, postDto.FileData, postDto.GroupdId);
 
-        return Redirect("/Home");
+        return RedirectToAction("GroupFiles", new {id = postDto.GroupdId});
     }
 
     [AllowAnonymous]
     public async Task<IActionResult> GroupFiles(Guid id)
     {
-        GroupIdAndPosts idAndPosts = new GroupIdAndPosts()
+        var idAndPosts = new GroupIdAndPosts()
         {
             GroupId = id,
             Posts = await _postsRepository.GetAllByGroupIdAsync(id)
@@ -80,7 +85,7 @@ public class GroupsController : Controller
             return View("AddGroup", model);
         }
 
-        Group group = new Group()
+        var group = new Group()
         {
             Id = Guid.NewGuid(),
             Name = model.GroupName,
@@ -90,13 +95,13 @@ public class GroupsController : Controller
 
         await _groupsRepository.AddAsync(group);
 
-        return Redirect($"/Home/Index");
+        return RedirectToAction("Groups", "Subjects", new {id = group.SubjectId});
     }
 
-    public async Task<IActionResult> DeleteGroupFromSubject(Guid id)
+    public async Task<IActionResult> DeleteGroupFromSubject(Guid id, Guid subjectId)
     {
         await _groupsRepository.DeleteByIdAsync(id);
 
-        return Redirect($"/Home/Index");
+        return RedirectToAction("Groups", "Subjects", new {id = subjectId});
     }
 }

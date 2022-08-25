@@ -18,7 +18,7 @@
             <form class="box" asp-controller="Groups" asp-action="AddGroupToSubject" method="post">
                 <div class="row text-white" asp-validation-summary="ModelOnly"></div>
                 <input type="hidden" value="@Model.SubjectId" name="SubjectId"/>
-                <input type="text" placeholder="Название" name="GroupName">
+                <input type="text" placeholder="Название группы" name="GroupName">
                 <input type="submit" value="Добавить">
             </form>
         </div>

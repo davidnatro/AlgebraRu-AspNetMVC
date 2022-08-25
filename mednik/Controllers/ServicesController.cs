@@ -1,6 +1,7 @@
 using mednik.Data.Repositories.Services;
 using mednik.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace mednik.Controllers;
@@ -15,27 +16,33 @@ public class ServicesController : Controller
 
     public IActionResult Index() => View();
 
+    public IActionResult AddService(string? returnUrl)
+    {
+        ViewBag.returnUrl = returnUrl;
+        return View("Index");
+    }
+
     [HttpPost]
-    public async Task<IActionResult> AddService(string name, string link)
+    public async Task<IActionResult> AddService(string name, string link, string? returnUrl)
     {
         var service = new Services() {Id = Guid.NewGuid(), Name = name, Link = link};
 
         if (!ModelState.IsValid)
         {
-            ModelState.AddModelError(String.Empty, "Поля не должны оставаться пустыми!");
+            ModelState.AddModelError(string.Empty, "Поля не должны оставаться пустыми!");
             return View("Index", service);
         }
 
         await _servicesRepository.AddAsync(service);
 
-        return RedirectToAction("Index", "Home");
+        return Redirect(returnUrl ?? "/");
     }
 
     [HttpPost]
-    public async Task<IActionResult> Delete(string id)
+    public async Task<IActionResult> Delete(Guid id, string? returnUrl)
     {
-        await _servicesRepository.DeleteAsync(new Guid(id));
+        await _servicesRepository.DeleteAsync(id);
 
-        return RedirectToAction("Index", "Home");
+        return Redirect(returnUrl ?? "/");
     }
 }

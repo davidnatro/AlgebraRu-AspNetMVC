@@ -47,8 +47,8 @@ public class SubjectsController : Controller
         }
 
         await _subjectsRepository.AddAsync(subject);
-        
-        return RedirectToAction("Index", "Home");
+
+        return RedirectToAction("Groups", "Subjects", new {id = subject.Id});
     }
 
     /// <summary>
@@ -68,9 +68,16 @@ public class SubjectsController : Controller
     /// </summary>
     /// <param name="id">Id предмета</param>
     /// <returns>Страница со списком групп (выбранного предмета)</returns>
-    [AllowAnonymous]
+    [AllowAnonymous, HttpGet]
     public async Task<IActionResult> Groups(Guid id)
     {
+        /*
+         * При переходе с метода AddSubjectToDB
+         * id предыдущего предмета сохраняется в url.
+         * RouteData.Value.Remove удаляет его вручную.
+         */
+        RouteData.Values.Remove("id");
+        
         var groups = await _groupsRepository.GetAllBySubjectIdAsync(id);
 
         var data = new SubjectIdAndGroups()

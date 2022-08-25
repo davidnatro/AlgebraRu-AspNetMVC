@@ -37,13 +37,15 @@ public class PostsController : Controller
 
         await _postsRepository.UploadFile(postDto.Name, postDto.Description, postDto.FileData);
 
-        return Redirect("/Home");
+        return RedirectToAction("Index", "Home");
     }
 
-    public async Task<IActionResult> Delete(Guid Id)
+    public async Task<IActionResult> Delete(Guid Id, Guid? groupId)
     {
         await _postsRepository.DeleteFileAsync(Id);
-
-        return RedirectToAction("Index", "Home");
+ 
+        return groupId != null
+            ? RedirectToAction("GroupFiles", "Groups", new {id = groupId})
+            : RedirectToAction("Index", "Home");
     }
 }

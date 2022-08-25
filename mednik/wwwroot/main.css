@@ -13,6 +13,7 @@
 
 .dropdown-item:hover {
     background-color: #253D66;
+    color: white;
 }
 
 .dropdown-item:active {
@@ -35,6 +36,11 @@ body {
 
 .logo {
     font-size: 30px
+}
+
+.pseudo-button {
+    background: transparent;
+    border: none;
 }
 
 .hor_line {

@@ -20,7 +20,7 @@
                 <form asp-controller="Groups" asp-action="AddPost" method="post">
                     <input type="hidden" name="groupId" value="@Model.GroupId"/>
                     <button type="submit" class="btn btn-primary">
-                        Добавить +
+                        Добавить пост
                     </button>
                 </form>
             </div>
@@ -36,6 +36,7 @@
                     {
                         <form asp-controller="Posts" asp-action="Delete" method="post">
                             <input type="hidden" name="Id" value="@post.Id"/>
+                            <input type="hidden" name="groupId" value="@Model.GroupId"/>
                             <button type="submit" style="background: transparent; border: none">
                                 <i class="bi bi-trash text-white"></i>
                             </button>

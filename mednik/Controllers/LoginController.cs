@@ -37,26 +37,31 @@ public class LoginController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Login(LoginModel details, string? returnUrl)
     {
-        if (ModelState.IsValid)
+        if (!ModelState.IsValid)
         {
-            User user = await _userManager.FindByEmailAsync(details.Email);
-            if (user != null)
-            {
-                await _signInManager.SignOutAsync();
-                Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(
-                    user, details.Password, false, false);
+            ModelState.AddModelError(string.Empty, "Поля не должны оставаться пустыми!");
+            return View("Index", details);
+        }
+        
+        var user = await _userManager.FindByEmailAsync(details.Email);
+        if (user != null)
+        {
+            await _signInManager.SignOutAsync();
+            Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(
+                user, details.Password, false, false);
 
-                if (result.Succeeded)
-                {
-                    return Redirect(returnUrl ?? "/");
-                }
+            if (result.Succeeded)
+            {
+                return Redirect(returnUrl ?? "/");
             }
-            ModelState.AddModelError(nameof(LoginModel.Email), "Invalid user or password");
         }
 
-        return RedirectToAction("Index", "Login", details);
+        ModelState.AddModelError(string.Empty, "Неверный логин или пароль!");
+
+        // return RedirectToAction("Index", "Login", details);
+        return View("Index", details);
     }
-    
+
     public async Task<IActionResult> Logout()
     {
         await _signInManager.SignOutAsync();

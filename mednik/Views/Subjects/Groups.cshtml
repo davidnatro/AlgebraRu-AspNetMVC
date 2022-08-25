@@ -19,7 +19,7 @@
             <div class="col-xs-2 col-sm-2">
                 <form asp-controller="Groups" asp-action="AddGroup">
                     <input type="hidden" value="@Model.SubjectId" name="id"/>
-                    <button type="submit" class="btn btn-primary">Добавить +</button>
+                    <button type="submit" class="btn btn-primary">Добавить группу</button>
                 </form>
             </div>
         </div>
@@ -34,6 +34,7 @@
                     {
                         <form asp-controller="Groups" asp-action="DeleteGroupFromSubject" method="post">
                             <input type="hidden" name="id" value="@group.Id"/>
+                            <input type="hidden" name="subjectId" value="@Model.SubjectId"/>
                             <button type="submit" style="background: transparent; border: none">
                                 <i class="bi bi-trash text-white"></i>
                             </button>
@@ -43,7 +44,7 @@
                         <h5 class="card-title text-white">@group.Name</h5>
                         <form asp-controller="Groups" asp-action="GroupFiles" method="get">
                             <input type="hidden" name="id" value="@group.Id"/>
-                            <button class="btn btn-primary">Открыть</button>
+                            <button type="submit" class="btn btn-primary">Открыть</button>
                         </form>
                     </div>
                 </div>

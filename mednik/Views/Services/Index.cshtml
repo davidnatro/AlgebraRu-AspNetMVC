@@ -21,6 +21,7 @@
                 <div class="row text-white" asp-validation-summary="ModelOnly"></div>
                 <input type="text" placeholder="Название" name="name">
                 <input type="text" placeholder="Ссылка" name="link">
+                <input type="hidden" value="@ViewBag.returnUrl" name="returnUrl"/>
                 <input type="submit" value="Добавить">
             </form>
         </div>

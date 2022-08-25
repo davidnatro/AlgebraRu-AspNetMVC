@@ -18,10 +18,10 @@
         <div class="col login">
             <form class="box" asp-controller="Login" asp-action="Login" method="post">
                 <h1>Login</h1>
-                <div class="row text-danger" asp-validation-summary="ModelOnly"></div>
-                <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl"/>
+                <div class="row text-white" asp-validation-summary="ModelOnly"></div>
                 <input type="text" placeholder="Email" asp-for="Email">
                 <input type="password" placeholder="Password" asp-for="Password">
+                <input type="hidden" value="@ViewBag.returnUrl" name="returnUrl" />
                 <input type="submit" value="Login">
             </form>
         </div>
