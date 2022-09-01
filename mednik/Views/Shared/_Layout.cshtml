@@ -1,6 +1,7 @@
 ﻿@using mednik.Data.Repositories.Services
 @using mednik.Data.Repositories.Subjects
 @using Microsoft.AspNetCore.Http.Extensions
+@using mednik.Data.Cache
 @inject IServicesRepository ServicesRepository;
 @inject ISubjectsRepository SubjectsRepository;
 <!DOCTYPE html>
@@ -33,7 +34,7 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownHSE">
                             @{
-                                var subjects = await SubjectsRepository.GetAllAsync();
+                                var subjects = CachedData.CachedSubjects ?? await SubjectsRepository.GetAllAsync();
                             }
                             @foreach (var subject in subjects)
                             {
@@ -72,7 +73,7 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             @{
-                                var services = await ServicesRepository.GetAllAsync();
+                                var services = CachedData.CachedServices ?? await ServicesRepository.GetAllAsync();
                             }
                             @foreach (var service in services)
                             {

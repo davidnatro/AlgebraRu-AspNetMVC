@@ -1,3 +1,4 @@
+using mednik.Data.Cache;
 using mednik.Data.Repositories.Posts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -11,13 +12,13 @@ public class HomeController : Controller
 
     public HomeController(IPostsRepository postsRepository)
         => _postsRepository = postsRepository;
-    
-    
+
+
     [AllowAnonymous]
     public async Task<IActionResult> Index()
     {
-        var posts = await _postsRepository.GetAllByGroupIdAsync(null);
-        
+        var posts = CachedData.CachedPosts ?? await _postsRepository.GetAllByGroupIdAsync(null);
+
         return View(posts);
     }
 }

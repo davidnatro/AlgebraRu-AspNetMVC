@@ -1,5 +1,6 @@
 using System.Data;
 using Dapper;
+using mednik.Data.Cache;
 using mednik.Data.Repositories.Groups;
 using mednik.Models;
 using Microsoft.Data.SqlClient;
@@ -50,7 +51,9 @@ public class SubjectsRepositoryDapper : ISubjectsRepository
 
             const string sql = "INSERT INTO Subjects (Id, Name) VALUES (@Id, @Name)";
             await connection.ExecuteAsync(sql, subject);
-
+            
+            CachedData.CachedSubjects = await GetAllAsync();
+            
             return true;
         }
     }
@@ -70,6 +73,8 @@ public class SubjectsRepositoryDapper : ISubjectsRepository
             const string sql = "DELETE FROM Subjects Where Id = @id";
             await connection.ExecuteAsync(sql, new {id});
 
+            CachedData.CachedSubjects = await GetAllAsync();
+            
             return true;
         }
     }

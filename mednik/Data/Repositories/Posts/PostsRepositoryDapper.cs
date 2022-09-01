@@ -1,5 +1,6 @@
 using System.Data;
 using Dapper;
+using mednik.Data.Cache;
 using mednik.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
@@ -35,6 +36,17 @@ public class PostsRepositoryDapper : IPostsRepository
             return await connection.QueryAsync<Post>(sql);
         }
     }
+    
+    public async Task<IEnumerable<Post>> GetAllByGroupIdAsync(Guid? id)
+    {
+        using (IDbConnection connection = new SqlConnection(_connectionString))
+        {
+            connection.Open();
+            
+            string sql = id == null ? "SELECT * FROM Posts WHERE GroupId is NULL" : "SELECT * FROM Posts WHERE GroupId = @id";
+            return await connection.QueryAsync<Post>(sql, new {id});
+        }
+    }
 
     private async Task<Post> GetPostByIdAsync(Guid id)
     {
@@ -45,17 +57,6 @@ public class PostsRepositoryDapper : IPostsRepository
             const string sql = "SELECT * FROM Posts WHERE Id = @id";
 
             return await connection.QueryFirstOrDefaultAsync<Post>(sql, new {id});
-        }
-    }
-
-    public async Task<IEnumerable<Post>> GetAllByGroupIdAsync(Guid? id)
-    {
-        using (IDbConnection connection = new SqlConnection(_connectionString))
-        {
-            connection.Open();
-            
-            string sql = id == null ? "SELECT * FROM Posts WHERE GroupId is NULL" : "SELECT * FROM Posts WHERE GroupId = @id";
-            return await connection.QueryAsync<Post>(sql, new {id});
         }
     }
 
@@ -96,6 +97,8 @@ public class PostsRepositoryDapper : IPostsRepository
                                "(@Id, @Name, @Description, @ImageURL, @GroupId)";
 
             await connection.ExecuteAsync(sql, post);
+
+            CachedData.CachedPosts = await GetAllByGroupIdAsync(null);
         }
     }
 
@@ -127,6 +130,8 @@ public class PostsRepositoryDapper : IPostsRepository
                 var objectId = new ObjectId(imgUrl);
 
                 await _gridFsBucket.DeleteAsync(objectId);
+                
+                CachedData.CachedPosts = await GetAllByGroupIdAsync(null);
             }
             catch (Exception exception)
             {

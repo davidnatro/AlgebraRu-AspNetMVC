@@ -1,5 +1,6 @@
 using System.Data;
 using Dapper;
+using mednik.Data.Cache;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Options;
 
@@ -33,6 +34,8 @@ public class ServicesRepositoryDapper : IServicesRepository
 
             const string sql = "INSERT INTO Services (Id, Name, Link) VALUES (@Id, @Name, @Link)";
             await connection.ExecuteAsync(sql, entity);
+            
+            CachedData.CachedServices = await GetAllAsync();
 
             return true;
         }
@@ -46,6 +49,8 @@ public class ServicesRepositoryDapper : IServicesRepository
             
             const string sql = "DELETE FROM Services Where Id = @id";
             await connection.ExecuteAsync(sql, new { id });
+
+            CachedData.CachedServices = await GetAllAsync();
 
             return true;
         }
